@@ -339,6 +339,7 @@ static int DoMountDevice(const char* device, const char* mountPoint)
     } else if (errno == EBUSY) {
         LOG_MOUNT("Mount failed (already mounted)\n");
         result = 0;
+        NotifyMediaState(mountPoint, MEDIA_MOUNTED, (flags & MS_RDONLY) != 0);
     } else {
 #if CREATE_MOUNT_POINTS
         rmdir(mountPoint);
